@@ -22,7 +22,7 @@
       "name": "1. Authentication",
       "item": [
         {
-          "name": "Login as Employee (David Miller)",
+          "name": "Login as Employee (Rohan Sharma)",
           "event": [
             {
               "listen": "test",
@@ -50,7 +50,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"david.miller@leaveflow.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"email\": \"rohan.sharma@leaveflow.com\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",
@@ -60,7 +60,7 @@
           }
         },
         {
-          "name": "Login as Admin (Sarah Jenkins)",
+          "name": "Login as Admin (Priya Nair)",
           "event": [
             {
               "listen": "test",
@@ -88,7 +88,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"sarah.jenkins@leaveflow.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"email\": \"priya.nair@leaveflow.com\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",

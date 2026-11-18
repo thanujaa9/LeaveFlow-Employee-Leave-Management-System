@@ -7,7 +7,7 @@ export default function Login() {
   const { login, loginAsDemo } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('david.miller@leaveflow.com');
+  const [email, setEmail] = useState('rohan.sharma@leaveflow.com');
   const [password, setPassword] = useState('password123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -156,8 +156,8 @@ export default function Login() {
           <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
             <p className="font-semibold text-slate-500 mb-1">Pre-configured Demo Accounts:</p>
             <ul className="space-y-0.5">
-              <li>• <span className="font-medium text-slate-600">david.miller@leaveflow.com</span> (Employee)</li>
-              <li>• <span className="font-medium text-slate-600">sarah.jenkins@leaveflow.com</span> (Admin)</li>
+              <li>• <span className="font-medium text-slate-600">rohan.sharma@leaveflow.com</span> (Employee: Rohan Sharma)</li>
+              <li>• <span className="font-medium text-slate-600">priya.nair@leaveflow.com</span> (Admin: Priya Nair)</li>
               <li className="text-slate-400 italic">Password: password123</li>
             </ul>
           </div>

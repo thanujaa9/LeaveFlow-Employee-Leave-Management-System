@@ -50,7 +50,7 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
 
-        log.info("Initializing LeaveFlow Enterprise Seed Data...");
+        log.info("Initializing LeaveFlow Enterprise Seed Data with Indian staff profiles...");
 
         // 1. Leave Types
         LeaveType cl = leaveTypeRepository.save(LeaveType.builder()
@@ -73,9 +73,9 @@ public class DataInitializer implements CommandLineRunner {
 
         String encodedPassword = passwordEncoder.encode("password123");
 
-        // 2. Admin User: Sarah Jenkins
+        // 2. Admin User: Priya Nair
         User adminUser = userRepository.save(User.builder()
-                .email("sarah.jenkins@leaveflow.com")
+                .email("priya.nair@leaveflow.com")
                 .password(encodedPassword)
                 .role(Role.ROLE_ADMIN)
                 .enabled(true)
@@ -84,138 +84,138 @@ public class DataInitializer implements CommandLineRunner {
         Employee adminEmp = employeeRepository.save(Employee.builder()
                 .user(adminUser)
                 .employeeCode("EMP-1001")
-                .firstName("Sarah")
-                .lastName("Jenkins")
+                .firstName("Priya")
+                .lastName("Nair")
                 .department("People & Culture")
                 .designation("Head of Human Resources")
-                .phone("+1 (555) 234-8901")
+                .phone("+91 98201 44521")
                 .joiningDate(LocalDate.of(2021, 3, 15))
-                .avatarUrl("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80")
+                .avatarUrl("https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80")
                 .build());
 
         seedBalances(adminEmp, leaveTypes);
 
-        // 3. Employee User: David Miller
-        User davidUser = userRepository.save(User.builder()
-                .email("david.miller@leaveflow.com")
+        // 3. Employee User: Rohan Sharma
+        User rohanUser = userRepository.save(User.builder()
+                .email("rohan.sharma@leaveflow.com")
                 .password(encodedPassword)
                 .role(Role.ROLE_EMPLOYEE)
                 .enabled(true)
                 .build());
 
-        Employee davidEmp = employeeRepository.save(Employee.builder()
-                .user(davidUser)
+        Employee rohanEmp = employeeRepository.save(Employee.builder()
+                .user(rohanUser)
                 .employeeCode("EMP-1042")
-                .firstName("David")
-                .lastName("Miller")
+                .firstName("Rohan")
+                .lastName("Sharma")
                 .department("Engineering")
                 .designation("Staff Software Engineer")
-                .phone("+1 (555) 872-3112")
+                .phone("+91 98452 33112")
                 .joiningDate(LocalDate.of(2022, 6, 1))
                 .avatarUrl("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80")
                 .build());
 
-        seedBalances(davidEmp, leaveTypes);
+        seedBalances(rohanEmp, leaveTypes);
 
-        // 4. Employee User: Elena Rostova
-        User elenaUser = userRepository.save(User.builder()
-                .email("elena.rostova@leaveflow.com")
+        // 4. Employee User: Ananya Iyer
+        User ananyaUser = userRepository.save(User.builder()
+                .email("ananya.iyer@leaveflow.com")
                 .password(encodedPassword)
                 .role(Role.ROLE_EMPLOYEE)
                 .enabled(true)
                 .build());
 
-        Employee elenaEmp = employeeRepository.save(Employee.builder()
-                .user(elenaUser)
+        Employee ananyaEmp = employeeRepository.save(Employee.builder()
+                .user(ananyaUser)
                 .employeeCode("EMP-1088")
-                .firstName("Elena")
-                .lastName("Rostova")
+                .firstName("Ananya")
+                .lastName("Iyer")
                 .department("Product Design")
                 .designation("Lead UI/UX Designer")
-                .phone("+1 (555) 431-7729")
+                .phone("+91 97110 77291")
                 .joiningDate(LocalDate.of(2022, 9, 12))
                 .avatarUrl("https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80")
                 .build());
 
-        seedBalances(elenaEmp, leaveTypes);
+        seedBalances(ananyaEmp, leaveTypes);
 
-        // 5. Employee User: Marcus Vance
-        User marcusUser = userRepository.save(User.builder()
-                .email("marcus.vance@leaveflow.com")
+        // 5. Employee User: Vikram Malhotra
+        User vikramUser = userRepository.save(User.builder()
+                .email("vikram.malhotra@leaveflow.com")
                 .password(encodedPassword)
                 .role(Role.ROLE_EMPLOYEE)
                 .enabled(true)
                 .build());
 
-        Employee marcusEmp = employeeRepository.save(Employee.builder()
-                .user(marcusUser)
+        Employee vikramEmp = employeeRepository.save(Employee.builder()
+                .user(vikramUser)
                 .employeeCode("EMP-1104")
-                .firstName("Marcus")
-                .lastName("Vance")
+                .firstName("Vikram")
+                .lastName("Malhotra")
                 .department("Engineering")
                 .designation("DevOps & Cloud Architect")
-                .phone("+1 (555) 902-4411")
+                .phone("+91 99801 88411")
                 .joiningDate(LocalDate.of(2023, 1, 10))
                 .avatarUrl("https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80")
                 .build());
 
-        seedBalances(marcusEmp, leaveTypes);
+        seedBalances(vikramEmp, leaveTypes);
 
-        // 6. Employee User: Aisha Patel
-        User aishaUser = userRepository.save(User.builder()
-                .email("aisha.patel@leaveflow.com")
+        // 6. Employee User: Neha Verma
+        User nehaUser = userRepository.save(User.builder()
+                .email("neha.verma@leaveflow.com")
                 .password(encodedPassword)
                 .role(Role.ROLE_EMPLOYEE)
                 .enabled(true)
                 .build());
 
-        Employee aishaEmp = employeeRepository.save(Employee.builder()
-                .user(aishaUser)
+        Employee nehaEmp = employeeRepository.save(Employee.builder()
+                .user(nehaUser)
                 .employeeCode("EMP-1115")
-                .firstName("Aisha")
-                .lastName("Patel")
+                .firstName("Neha")
+                .lastName("Verma")
                 .department("Marketing")
                 .designation("Senior Growth Manager")
-                .phone("+1 (555) 612-8833")
+                .phone("+91 98103 66733")
                 .joiningDate(LocalDate.of(2023, 4, 18))
-                .avatarUrl("https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80")
+                .avatarUrl("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80")
                 .build());
 
-        seedBalances(aishaEmp, leaveTypes);
+        seedBalances(nehaEmp, leaveTypes);
 
         // 7. Seed Sample Leave Requests & Approvals
         LeaveRequest pendingReq1 = leaveRequestRepository.save(LeaveRequest.builder()
                 .referenceNumber("LR-2026-089")
-                .employee(davidEmp)
+                .employee(rohanEmp)
                 .leaveType(cl)
                 .startDate(LocalDate.of(2026, 11, 26))
                 .endDate(LocalDate.of(2026, 11, 27))
                 .totalDays(2)
-                .reason("Family Thanksgiving reunion and personal travel out of state.")
+                .reason("Family wedding celebrations and travel to hometown in Jaipur.")
                 .status(LeaveStatus.PENDING)
                 .appliedAt(LocalDateTime.now().minusDays(1))
                 .build());
 
         LeaveRequest pendingReq2 = leaveRequestRepository.save(LeaveRequest.builder()
                 .referenceNumber("LR-2026-088")
-                .employee(elenaEmp)
+                .employee(ananyaEmp)
                 .leaveType(sl)
                 .startDate(LocalDate.of(2026, 11, 23))
                 .endDate(LocalDate.of(2026, 11, 23))
                 .totalDays(1)
-                .reason("Dental surgery and prescribed follow-up recovery.")
+                .reason("Dental appointment and prescribed post-procedure rest.")
                 .status(LeaveStatus.PENDING)
                 .appliedAt(LocalDateTime.now().minusHours(8))
                 .build());
 
         LeaveRequest approvedReq1 = leaveRequestRepository.save(LeaveRequest.builder()
                 .referenceNumber("LR-2026-074")
-                .employee(davidEmp)
+                .employee(rohanEmp)
                 .leaveType(el)
                 .startDate(LocalDate.of(2026, 11, 5))
                 .endDate(LocalDate.of(2026, 11, 9))
                 .totalDays(3)
-                .reason("Annual hiking expedition with college alumni in Rocky Mountain National Park.")
+                .reason("Annual trekking trip in Himachal Pradesh with college batchmates.")
                 .status(LeaveStatus.APPROVED)
                 .appliedAt(LocalDateTime.now().minusDays(20))
                 .build());
@@ -224,18 +224,18 @@ public class DataInitializer implements CommandLineRunner {
                 .leaveRequest(approvedReq1)
                 .approver(adminUser)
                 .status(LeaveStatus.APPROVED)
-                .comments("Approved! Have a great trip and stay safe.")
+                .comments("Approved! Have a refreshing trek Rohan.")
                 .actionedAt(LocalDateTime.now().minusDays(19))
                 .build());
 
         LeaveRequest approvedReq2 = leaveRequestRepository.save(LeaveRequest.builder()
                 .referenceNumber("LR-2026-062")
-                .employee(marcusEmp)
+                .employee(vikramEmp)
                 .leaveType(cl)
                 .startDate(LocalDate.of(2026, 11, 19))
                 .endDate(LocalDate.of(2026, 11, 20))
                 .totalDays(2)
-                .reason("Apartment relocation and home infrastructure setup.")
+                .reason("Apartment shifting and home internet setup in Pune.")
                 .status(LeaveStatus.APPROVED)
                 .appliedAt(LocalDateTime.now().minusDays(6))
                 .build());
@@ -244,18 +244,18 @@ public class DataInitializer implements CommandLineRunner {
                 .leaveRequest(approvedReq2)
                 .approver(adminUser)
                 .status(LeaveStatus.APPROVED)
-                .comments("Approved. Seamless sprint coverage verified with tech lead.")
+                .comments("Approved. Sprint deliverables covered by DevOps team.")
                 .actionedAt(LocalDateTime.now().minusDays(5))
                 .build());
 
         LeaveRequest rejectedReq = leaveRequestRepository.save(LeaveRequest.builder()
                 .referenceNumber("LR-2026-038")
-                .employee(davidEmp)
+                .employee(rohanEmp)
                 .leaveType(cl)
                 .startDate(LocalDate.of(2026, 9, 15))
                 .endDate(LocalDate.of(2026, 9, 16))
                 .totalDays(2)
-                .reason("Long weekend road trip to Pacific coast.")
+                .reason("Long weekend family trip to Goa.")
                 .status(LeaveStatus.REJECTED)
                 .appliedAt(LocalDateTime.now().minusMonths(2))
                 .build());
@@ -264,7 +264,7 @@ public class DataInitializer implements CommandLineRunner {
                 .leaveRequest(rejectedReq)
                 .approver(adminUser)
                 .status(LeaveStatus.REJECTED)
-                .comments("Quarterly architecture migration scheduled on Sept 15th requires all core backend engineers.")
+                .comments("Major Q3 microservices migration scheduled on Sept 15 requires all senior engineering leads.")
                 .actionedAt(LocalDateTime.now().minusMonths(2).plusDays(1))
                 .build());
 

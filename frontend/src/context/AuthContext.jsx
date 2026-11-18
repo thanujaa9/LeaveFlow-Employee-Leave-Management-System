@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
         return null;
       }
     }
-    // Default to David Miller (Employee) for smooth preview
+    // Default to Rohan Sharma (Employee) for smooth preview
     return INITIAL_USERS[1];
   });
 

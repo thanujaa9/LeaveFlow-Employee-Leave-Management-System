@@ -26,9 +26,9 @@ class LeaveFlowIntegrationTests {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Should successfully authenticate Employee with valid credentials and return JWT")
+    @DisplayName("Should successfully authenticate Employee (Rohan Sharma) with valid credentials and return JWT")
     void testEmployeeLoginSuccess() throws Exception {
-        LoginRequest loginRequest = new LoginRequest("david.miller@leaveflow.com", "password123");
+        LoginRequest loginRequest = new LoginRequest("rohan.sharma@leaveflow.com", "password123");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -40,9 +40,9 @@ class LeaveFlowIntegrationTests {
     }
 
     @Test
-    @DisplayName("Should successfully authenticate Admin with valid credentials and return JWT")
+    @DisplayName("Should successfully authenticate Admin (Priya Nair) with valid credentials and return JWT")
     void testAdminLoginSuccess() throws Exception {
-        LoginRequest loginRequest = new LoginRequest("sarah.jenkins@leaveflow.com", "password123");
+        LoginRequest loginRequest = new LoginRequest("priya.nair@leaveflow.com", "password123");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -56,7 +56,7 @@ class LeaveFlowIntegrationTests {
     @Test
     @DisplayName("Should reject invalid login credentials with 401 Unauthorized")
     void testInvalidLoginCredentials() throws Exception {
-        LoginRequest loginRequest = new LoginRequest("david.miller@leaveflow.com", "wrongpassword");
+        LoginRequest loginRequest = new LoginRequest("rohan.sharma@leaveflow.com", "wrongpassword");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)

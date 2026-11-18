@@ -229,9 +229,9 @@ For immediate evaluation, instant 1-click login buttons are embedded directly in
 
 | Role | Email | Password | Name & Title |
 | :--- | :--- | :--- | :--- |
-| **Employee** | `david.miller@leaveflow.com` | `password123` | David Miller (Staff Software Engineer) |
-| **Employee** | `elena.rostova@leaveflow.com` | `password123` | Elena Rostova (Lead Product Designer) |
-| **Admin** | `sarah.jenkins@leaveflow.com` | `password123` | Sarah Jenkins (Head of Human Resources) |
+| **Employee** | `rohan.sharma@leaveflow.com` | `password123` | Rohan Sharma (Staff Software Engineer) |
+| **Employee** | `ananya.iyer@leaveflow.com` | `password123` | Ananya Iyer (Lead Product Designer) |
+| **Admin** | `priya.nair@leaveflow.com` | `password123` | Priya Nair (Head of Human Resources) |
 
 ---
 
@@ -297,26 +297,120 @@ Test Results Summary:
 
 ---
 
-## 📦 Production Deployment
+## 📦 Production Deployment Guide
 
-### Build Frontend
+LeaveFlow can be deployed across modern cloud architectures:
+
+---
+
+### Option 1: 🐳 1-Command Docker Compose (Recommended for Full Stack)
+
+The project includes pre-configured Dockerfiles and a `docker-compose.yml` linking MySQL 8.0, Spring Boot 3, and React (via Nginx):
+
 ```bash
-cd frontend
-npm run build
-# Output generated in frontend/dist/
+# Clone the repository
+git clone https://github.com/thanujaa9/LeaveFlow-Employee-Leave-Management-System.git
+cd LeaveFlow-Employee-Leave-Management-System
+
+# Spin up MySQL, Spring Boot Backend, and React Frontend in isolated containers
+docker compose up --build -d
 ```
 
-### Build Backend JAR
+- **Frontend Application:** `http://localhost:3000`
+- **Backend REST API:** `http://localhost:8080`
+- **MySQL Container:** `localhost:3306` (with automated healthchecks and persistent storage volume)
+
+---
+
+### Option 2: ☁️ Cloud PaaS (Render / Railway / Vercel)
+
+#### A. Deploy Spring Boot Backend (Render or Railway)
+1. Link your GitHub repository in [Render.com](https://render.com) or [Railway.app](https://railway.app).
+2. Provision a managed **MySQL** database service.
+3. Create a **Web Service** pointing to the `/backend` directory.
+4. Set the Build Command:
+   ```bash
+   mvn clean package -DskipTests=true
+   ```
+5. Set the Start Command:
+   ```bash
+   java -jar target/leaveflow-backend-1.0.0.jar
+   ```
+6. Add Environment Variables:
+   - `SPRING_PROFILES_ACTIVE`: `mysql`
+   - `MYSQL_HOST`: `<your-db-host>`
+   - `MYSQL_PORT`: `3306`
+   - `MYSQL_DATABASE`: `leaveflow_db`
+   - `MYSQL_USER`: `<your-db-user>`
+   - `MYSQL_PASSWORD`: `<your-db-password>`
+
+#### B. Deploy React Frontend (Vercel or Netlify)
+1. Import repository in [Vercel](https://vercel.com) or [Netlify](https://netlify.com).
+2. Set **Root Directory** to `frontend`.
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Add Environment Variable:
+   - `VITE_API_BASE_URL`: `https://your-backend-service.onrender.com/api`
+
+---
+
+### Option 3: 🖥️ Traditional Linux VPS / AWS EC2 Deployment
+
+#### 1. Setup Linux Server (Ubuntu 22.04 / 24.04 LTS)
 ```bash
-cd backend
-mvn clean package -DskipTests=true
-# Executable standalone JAR created at:
-# backend/target/leaveflow-backend-1.0.0.jar
+sudo apt update && sudo apt install -y openjdk-21-jdk nginx mysql-server
 ```
 
-### Run Executable JAR
+#### 2. Run Backend as a Background systemd Service
+Create `/etc/systemd/system/leaveflow.service`:
+```ini
+[Unit]
+Description=LeaveFlow Spring Boot Backend
+After=network.target mysql.service
+
+[Service]
+User=ubuntu
+WorkingDirectory=/var/www/leaveflow/backend
+ExecStart=/usr/bin/java -jar /var/www/leaveflow/backend/target/leaveflow-backend-1.0.0.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+Start service:
 ```bash
-java -jar backend/target/leaveflow-backend-1.0.0.jar
+sudo systemctl daemon-reload
+sudo systemctl enable --now leaveflow
+```
+
+#### 3. Configure Nginx Reverse Proxy
+Edit `/etc/nginx/sites-available/default`:
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    # Frontend Single Page App
+    location / {
+        root /var/www/leaveflow/frontend/dist;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Backend REST API Proxy
+    location /api/ {
+        proxy_pass http://localhost:8080/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+Reload Nginx:
+```bash
+sudo systemctl restart nginx
 ```
 
 ---
