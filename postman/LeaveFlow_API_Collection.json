@@ -1,0 +1,378 @@
+{
+  "info": {
+    "_postman_id": "76495111-9a99-4d43-982e-9d220970a2fe",
+    "name": "LeaveFlow – Enterprise Employee Leave Management API",
+    "description": "Complete REST API collection for LeaveFlow SaaS HR System. Includes JWT authentication, employee self-service, leave calculations, audit logs, and administrative decision actions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login as Employee (David Miller)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('authToken', jsonData.token);",
+                  "    pm.test('Token captured successfully', function () {",
+                  "        pm.expect(jsonData.token).to.not.be.empty;",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"david.miller@leaveflow.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login as Admin (Sarah Jenkins)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('authToken', jsonData.token);",
+                  "    pm.test('Admin token captured successfully', function () {",
+                  "        pm.expect(jsonData.token).to.not.be.empty;",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah.jenkins@leaveflow.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current Authenticated User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Leave Types",
+      "item": [
+        {
+          "name": "List All Leave Types",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/leave-types",
+              "host": ["{{baseUrl}}"],
+              "path": ["leave-types"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Employee Self-Service",
+      "item": [
+        {
+          "name": "Apply for Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leaveTypeId\": 1,\n  \"startDate\": \"2026-12-15\",\n  \"endDate\": \"2026-12-16\",\n  \"reason\": \"Family relocation and domestic errands.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/leaves/apply",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "apply"]
+            }
+          }
+        },
+        {
+          "name": "Get My Leave Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leaves/my",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "my"]
+            }
+          }
+        },
+        {
+          "name": "Get My Leave Balances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/balances/my",
+              "host": ["{{baseUrl}}"],
+              "path": ["balances", "my"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Pending Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leaves/1/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "1", "cancel"]
+            }
+          }
+        },
+        {
+          "name": "Get Team Calendar Leaves",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leaves/calendar?year=2026&month=11",
+              "host": ["{{baseUrl}}"],
+              "path": ["leaves", "calendar"],
+              "query": [
+                { "key": "year", "value": "2026" },
+                { "key": "month", "value": "11" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Admin Operations",
+      "item": [
+        {
+          "name": "Get Admin Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/leaves/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "leaves", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Leave Approvals",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/leaves/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "leaves", "pending"]
+            }
+          }
+        },
+        {
+          "name": "Get All Leave Applications (Global Audit)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/leaves/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "leaves", "all"]
+            }
+          }
+        },
+        {
+          "name": "Approve Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Approved by HR Operations. Coverage confirmed.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/leaves/1/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "leaves", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Leave Request with Reason",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Declined due to team capacity constraints on scheduled release days.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/leaves/2/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "leaves", "2", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Get All Workforce Employees",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/employees",
+              "host": ["{{baseUrl}}"],
+              "path": ["employees"]
+            }
+          }
+        },
+        {
+          "name": "Get Specific Employee Leave Balances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/balances/employee/EMP-1042",
+              "host": ["{{baseUrl}}"],
+              "path": ["balances", "employee", "EMP-1042"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
