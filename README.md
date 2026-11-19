@@ -13,6 +13,50 @@
 
 ---
 
+## 📸 Application Screenshots & UI Tour
+
+### 1. Employee Self-Service Dashboard
+The central hub for staff members, presenting leave allowance counters, active balances, upcoming planned absences, and real-time request timeline.
+![LeaveFlow Employee Dashboard](docs/screenshots/02_employee_dashboard.png)
+
+---
+
+### 2. HR Administrator Command Center
+Executive oversight displaying workforce KPIs, a pending approvals decision queue, quick approval/rejection actions with mandatory feedback, and recent approvals.
+![LeaveFlow Admin Dashboard](docs/screenshots/06_admin_dashboard.png)
+
+---
+
+### 3. Application Form & Smart Validator
+Leave submission modal featuring automated working-day calculation (excluding weekends), dynamic balance checks, and concurrency conflict prevention.
+![Apply for Leave](docs/screenshots/03_apply_leave.png)
+
+---
+
+### 4. Leave History & Request Audit Trail
+Searchable, filterable audit table with status indicators (`APPROVED`, `PENDING`, `REJECTED`, `CANCELLED`), detailed request modals, and self-service cancellation.
+![Leave History](docs/screenshots/04_leave_history.png)
+
+---
+
+### 5. Interactive Team Absence Calendar
+Cross-departmental schedule calendar highlighting approved colleague absences with color-coded categories and day-by-day attendee details.
+![Team Absence Calendar](docs/screenshots/05_team_calendar.png)
+
+---
+
+### 6. Workforce Directory & Quota Overview
+Full employee roster with department filters, keyword search, and detailed breakdowns of Annual Paid Leave, Sick Leave, and Casual Leave balances.
+![Workforce Directory](docs/screenshots/07_workforce_directory.png)
+
+---
+
+### 7. Secure Authentication Portal
+Clean enterprise authentication supporting JWT security, BCrypt credentials, and instant 1-click role demo logins for Employee (**Rohan Sharma**) and Admin (**Priya Nair**).
+![Authentication Portal](docs/screenshots/01_login.png)
+
+---
+
 ## 🌟 Key Features
 
 ### 👤 Employee Self-Service Portal
